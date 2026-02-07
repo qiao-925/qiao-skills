@@ -1,6 +1,15 @@
 ---
 name: architecture-cognition
-description: 全局架构认知，帮助 AI Agent 建立系统全局认知，理解整体架构、数据流向、组件关系，避免局部优化导致全局问题。适用于所有 Python 和 Markdown 文件。
+description: 项目专用的全局架构认知规范，帮助 AI Agent 在 RAG 分层系统中建立全局认知并分析影响范围。适用于该项目内的 Python 和 Markdown 文件。
+metadata:
+  type: declarative
+  category: architecture
+  scope: project-specific
+  project: cs-rag
+  classification: project-architecture
+  status: legacy-routed
+  primary_entry_skill: cs-rag-architecture-guideline
+  related_generic_skill: architecture-governance
 ---
 
 # 全局架构认知规范
@@ -60,3 +69,18 @@ description: 全局架构认知，帮助 AI Agent 建立系统全局认知，理
 - `references/three-layer-architecture.md` - 三层架构详细说明与违规示例
 - `references/component-map.md` - 核心组件地图与依赖关系
 - `references/data-flow.md` - 查询流程与索引构建数据流
+
+---
+
+## 分类标注
+
+- 本 skill 属于**项目专用架构规则**，仅适用于当前 RAG 项目结构。
+- 若需跨项目复用，请优先使用 `architecture-governance`。
+
+---
+
+## 路由声明（无损合并）
+
+- 本 skill 已被 `cs-rag-architecture-guideline` 聚合为项目主入口。
+- 本文件保留原始规则文本，作为“架构认知与影响面分析”子规范。
+- 使用建议：优先触发 `cs-rag-architecture-guideline`，由其路由到本 skill。

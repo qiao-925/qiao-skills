@@ -1,15 +1,10 @@
 Skills 功能清单（按目录名排序）
 
-## skills 管理
-agent-skill-rules: Agent Skills 统一规则标准；支持创建、修改、重构、迁移、审计与维护，统一目录结构、frontmatter、渐进式披露与校验要点。
-
-
+# 通用规则
 
 ## 架构，系统设计，程序设计
-architecture-cognition: 做全局架构认知与影响面分析；改代码前先确认分层位置、依赖关系、数据流影响，避免跨层/反向依赖。
-architecture-design: 架构设计/重构规范；分层、接口契约(Protocol/ABC)、依赖注入、可插拔/工厂注册等。
-refactor-and-decompose: 重构/分解约束入口；规划时约定文件边界与行数预算，收尾前做结构检查；配合 file-size-limit/single-responsibility。
-single-responsibility: 单一职责原则；保证文件/函数/模块职责清晰，避免循环依赖；职责不清时给拆分建议模板。
+architecture-governance: 通用架构治理规范；抽象分层约束、影响面分析、接口契约、依赖注入与可插拔设计，适用于跨项目复用。
+single-responsibility: 单一职责原则；保证文件/函数/模块职责清晰，避免循环依赖；可独立使用，也可由 architecture-governance 联动触发。
 
 ## 工作流
 requirement-discovery: 需求发现；在迷茫/探索场景用角色扮演+ROI 评估产出高 ROI 方向（对话式输出，不生成文档）。
@@ -17,6 +12,8 @@ cross-agent-review: 交付完成且存在 git 未提交变更时，提示“新�
 task-closure: 收尾流程；结构检查通过后生成任务日志与六维度复盘分析；含 generate_task_log.py。
 task-planning: 任务规划；复杂任务（>=3 步）生成计划书/Checkpoint/决策点/文件清单；含 generate_task_plan.py。
 testing-and-diagnostics: 正式测试与诊断；先建 TEST 记录文档，再按变更跑单测/浏览器测；失败进入最多三轮诊断；含 run_test_workflow.py/run_browser_tests.py/auto_diagnose.py。
+
+task-checkpoint
 
 ## 文件，文档规则
 documentation-standards: Markdown 文档规范（标题编号、日期格式、引用/代码块规范、篇幅控制与提交前检查）。
@@ -33,11 +30,12 @@ project-principles: 项目聚焦原则；围绕“最小光辉点”，砍掉偏
 ## python
 python-coding-standards: Python 代码规范；强制类型标注、日志规范（禁用 print）、命名与结构基线等。
 
+# 项目定制规则
+
 ## assemble skills
 prompt-recommendation: Prompt 智能推荐；根据任务类型推荐 1–3 个 Prompt 并给执行步骤（用于写作/优化/总结/组织内容等）。
 whetstone: 批注式整理；把“原文+你的批注”整理成“编号批注+对应原文片段”，并输出 AI 总结（触发词：磨刀石/批注式整理等）。
 
 
-
-
-
+## 项目专用架构规则
+cs-rag-architecture-guideline: 【项目主入口】CS-RAG 项目架构总规范；已无损承载 cognition+design 全量内容，按“认知→设计→复核”执行。
