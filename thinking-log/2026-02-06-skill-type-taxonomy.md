@@ -27,7 +27,7 @@
 > - **Examples**（输入/输出示例）
 > - **Edge cases**（边界情况）
 
-这三个要素有一个共同的隐含假设：**skill 是一个有明确触发、有执行步骤、有可观测输出的"动作"**。这对 `task-planning`（规划任务）、`testing-and-diagnostics`（测试诊断）这类 skill 非常合适——它们确实有清晰的 input → process → output 流。
+这三个要素有一个共同的隐含假设：**skill 是一个有明确触发、有执行步骤、有可观测输出的"动作"**。这对 `w02-task-planning`（规划任务）、`w03-testing-and-diagnostics`（测试诊断）这类 skill 非常合适——它们确实有清晰的 input → process → output 流。
 
 但观察是对的：**并非所有 skill 都是"动作型"的**。
 
@@ -39,7 +39,7 @@
 | 触发方式 | 明确事件触发（用户指令、条件满足） | 始终生效，作为背景约束 |
 | 执行模式 | 线性步骤：Step 1 → 2 → 3 | 并行检查：每个决策点都要对照 |
 | 输入/输出 | 有明确的输入和可观测输出 | 没有独立输出，体现在其他动作的质量上 |
-| 示例 | `task-planning`, `doc-driven-development` | `ai-collaboration-principles`, `single-responsibility` |
+| 示例 | `w02-task-planning`, `doc-driven-development` | `ai-collaboration-principles`, `single-responsibility` |
 
 `doc-driven-development` 其实处于中间地带——它有明确的触发条件（遇到 API 报错时）和执行步骤（停止猜测 → 查文档 → 基于文档实现），所以它用 Instructions 模式是合理的。
 

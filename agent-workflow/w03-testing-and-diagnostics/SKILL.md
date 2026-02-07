@@ -1,5 +1,5 @@
 ---
-name: testing-and-diagnostics
+name: w03-testing-and-diagnostics
 description: 测试与诊断工作流，包含单元测试和浏览器测试，测试失败时自动诊断。适用于代码变更后的测试执行与排障。
 ---
 
@@ -90,6 +90,12 @@ AI 无法 100% 自主完成所有测试，部分场景需要人类协助：
 3. 记录协作点到测试文档
 
 **原则**：半自动化测试同样有效，AI 分担大部分工作，人类补充 AI 难以处理的环节。
+
+### 与 W00 协同（自动 + 手动）
+
+- 进入测试前可自动调用 `w00-workflow-checkpoint checkpoint` 记录测试起点与下一步。
+- 测试失败并进入诊断时，可自动更新 issue 为 `status:blocked` 并记录 blocker。
+- 用户可手动执行 `/w00-workflow-checkpoint` 补记测试节点与读档信息。
 
 ---
 

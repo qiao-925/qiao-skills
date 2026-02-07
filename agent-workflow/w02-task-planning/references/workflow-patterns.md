@@ -135,8 +135,8 @@ workflow-name/
 
 | Skill | 状态文档 | 检查点 |
 |-------|----------|--------|
-| task-planning | `agent-task-log/PLAN_*.md` | CP1, CP2, CP3... |
-| task-closure | `agent-task-log/archive/*.md` | 日志生成、六维分析 |
+| w02-task-planning | `agent-task-log/PLAN_*.md` | CP1, CP2, CP3... |
+| w05-task-closure | `agent-task-log/archive/*.md` | 日志生成、六维分析 |
 
 ---
 

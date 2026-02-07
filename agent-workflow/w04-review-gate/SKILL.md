@@ -1,5 +1,5 @@
 ---
-name: cross-agent-review
+name: w04-review-gate
 description: 任务执行完成后，提示用户新开 Agent 审查 git 未提交代码。运动员不当裁判，审查通过后再收尾。
 ---
 
@@ -32,7 +32,12 @@ description: 任务执行完成后，提示用户新开 Agent 审查 git 未提�
 
 在交付总结、用户尚未发起收尾之前，若存在未提交的代码变更，则输出上述提示。
 
+### 与 W00 协同（自动 + 手动）
+
+- 审查前可自动调用 `w00-workflow-checkpoint checkpoint` 记录“待审查”状态。
+- 审查结论确认后可自动或手动调用 `/w00-workflow-checkpoint` 记录结果与下一步。
+
 ### 禁止事项
 
-- ❌ 将本提示纳入 task-closure 收尾流程（二者独立：先审查，后收尾）
+- ❌ 将本提示纳入 w05-task-closure 收尾流程（二者独立：先审查，后收尾）
 - ❌ 使用问句（如「是否进入收尾？」）—— 收尾由用户审查通过后主动发起

@@ -21,7 +21,7 @@
 - Examples（输入/输出示例）
 - Edge cases（边界情况）
 
-**典型示例**：`task-planning`、`doc-driven-development`、`testing-and-diagnostics`
+**典型示例**：`w02-task-planning`、`doc-driven-development`、`w03-testing-and-diagnostics`
 
 ### 约束型 skill（Declarative）
 

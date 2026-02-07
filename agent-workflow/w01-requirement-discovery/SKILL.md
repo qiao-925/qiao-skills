@@ -1,5 +1,5 @@
 ---
-name: requirement-discovery
+name: w01-requirement-discovery
 description: 需求发现规范，适用于探索性场景，通过角色扮演帮助用户在迷茫中发现高ROI功能方向。自动触发，纯对话式启发。
 ---
 
@@ -53,15 +53,20 @@ description: 需求发现规范，适用于探索性场景，通过角色扮演�
 2. [功能名] - ROI: ⭐⭐⭐⭐
    ...
 
-建议：选择功能后执行 /task-planning 进行详细规划
+建议：选择功能后执行 /w02-task-planning 进行详细规划
 ```
 
-### 衔接 task-planning
+### 衔接 w02-task-planning
 
 用户确认功能后，提示：
 ```
-已确认功能：[功能名]，是否执行 /task-planning 进行详细规划？
+已确认功能：[功能名]，是否执行 /w02-task-planning 进行详细规划？
 ```
+
+### 与 W00 协同（自动 + 手动）
+
+- 方向确认且预计跨会话执行时，由主流程阶段完成 issue 初始化/绑定，再调用 `w00-workflow-checkpoint` 写首个 checkpoint。
+- 用户手动调用 `/w00-workflow-checkpoint` 时，聚焦存档/读档，不负责初始化。
 
 ---
 

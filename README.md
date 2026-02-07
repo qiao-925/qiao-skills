@@ -1,19 +1,27 @@
 Skills 功能清单（按目录名排序）
 
+```
+https://github.com/qiao-925/qiao-skills/tree/main/agent-collaboration
+```
+
 # 通用规则
+
+## 
+agent-skill-rules
 
 ## 架构，系统设计，程序设计
 architecture-governance: 通用架构治理规范；抽象分层约束、影响面分析、接口契约、依赖注入与可插拔设计，适用于跨项目复用。
 single-responsibility: 单一职责原则；保证文件/函数/模块职责清晰，避免循环依赖；可独立使用，也可由 architecture-governance 联动触发。
 
-## 工作流
-requirement-discovery: 需求发现；在迷茫/探索场景用角色扮演+ROI 评估产出高 ROI 方向（对话式输出，不生成文档）。
-cross-agent-review: 交付完成且存在 git 未提交变更时，提示“新开 Agent 做代码审查”，审查通过后再收尾。
-task-closure: 收尾流程；结构检查通过后生成任务日志与六维度复盘分析；含 generate_task_log.py。
-task-planning: 任务规划；复杂任务（>=3 步）生成计划书/Checkpoint/决策点/文件清单；含 generate_task_plan.py。
-testing-and-diagnostics: 正式测试与诊断；先建 TEST 记录文档，再按变更跑单测/浏览器测；失败进入最多三轮诊断；含 run_test_workflow.py/run_browser_tests.py/auto_diagnose.py。
+## 工作流基础能力
+w00-workflow-checkpoint: Workflow Checkpoint 基础能力（GitHub Issues）；仅负责 checkpoint 存档与恢复。适用于所有 workflow 步骤，支持自动触发 + 手动调用。
 
-task-checkpoint
+## 工作流（Workflow Group W）
+w01-requirement-discovery: 需求发现；在迷茫/探索场景用角色扮演+ROI 评估产出高 ROI 方向（对话式输出，不生成文档）。
+w02-task-planning: 任务规划；复杂任务（>=3 步）生成计划书/Checkpoint/决策点/文件清单；含 generate_task_plan.py。
+w03-testing-and-diagnostics: 正式测试与诊断；先建 TEST 记录文档，再按变更跑单测/浏览器测；失败进入最多三轮诊断；含 run_test_workflow.py/run_browser_tests.py/auto_diagnose.py。
+w04-review-gate: 交付完成且存在 git 未提交变更时，提示“新开 Agent 做代码审查”，审查通过后再收尾。
+w05-task-closure: 收尾流程；结构检查通过后生成任务日志与六维度复盘分析；含 generate_task_log.py。
 
 ## 文件，文档规则
 documentation-standards: Markdown 文档规范（标题编号、日期格式、引用/代码块规范、篇幅控制与提交前检查）。

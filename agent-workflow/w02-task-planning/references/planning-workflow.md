@@ -3,7 +3,7 @@
 ## 1. 核心流程
 
 ```
-任务启动 → 评估复杂度 → 创建计划书 → 按 CP 执行 → 更新状态 → 归档
+任务启动 → 评估复杂度 → 创建计划书 → 创建/绑定 GitHub Issue → 按 CP 执行并调用 W00 记录 checkpoint → 更新状态 → 归档
 ```
 
 ## 2. 复杂度评估
@@ -72,9 +72,34 @@
 YYYY-MM-DD-N_【plan】任务名称-实施计划.md
 ```
 
-## 6. 工具脚本
+## 6. GitHub Issues（W00）联动
 
-### 6.1 生成计划书
+### 6.1 何时必须联动
+
+- 任务预计跨会话或跨天执行
+- 需要项目级查看进行中任务
+- 需要记录下一步（Next）与阻塞状态
+
+### 6.2 计划书最小字段
+
+- `Issue #`：关联 issue 编号
+- `status`：`status:todo / status:in-progress / status:blocked / status:done`
+- `Next`：下一步动作
+
+### 6.3 每个 CP 的联动动作
+
+- 计划书状态更新（本地文档）
+- issue checkpoint 更新（线上 issue 评论）
+- 若阻塞：同步设置 `status:blocked` 并记录 blocker
+
+### 6.4 触发方式
+
+- 自动：主流程阶段在关键节点自动调用 `w00-workflow-checkpoint` 做存档/读档
+- 手动：用户可随时调用 `/w00-workflow-checkpoint` 进行补记或读档
+
+## 7. 工具脚本
+
+### 7.1 生成计划书
 
 **脚本**：`scripts/generate_task_plan.py`
 

@@ -1,5 +1,5 @@
 ---
-name: task-closure
+name: w05-task-closure
 description: 任务收尾规范，包含日志生成和优化分析。适用于主要交付完成后的收尾阶段。
 ---
 
@@ -19,9 +19,12 @@ description: 任务收尾规范，包含日志生成和优化分析。适用于�
 
 ### 必须执行的流程
 
-1. **结构检查（再收尾）**：本任务涉及的所有代码文件 ≤300 行（`file-size-limit`）、职责清晰且无循环依赖（`single-responsibility`）。若超限或职责不清：先拆分/重构再继续收尾；若用户选择暂不处理，在日志中记录「遗留：结构问题」及建议。
-2. **生成任务日志**：使用 `scripts/generate_task_log.py`
-3. **六维度优化分析**：代码质量/架构设计/性能/测试/可维护性/技术债务
+1. **W00 同步检查**：确认已通过 `w00-workflow-checkpoint` 完成最终 issue 同步（含最终 checkpoint 摘要与下一步信息）。
+2. **结构检查（再收尾）**：本任务涉及的所有代码文件 ≤300 行（`file-size-limit`）、职责清晰且无循环依赖（`single-responsibility`）。若超限或职责不清：先拆分/重构再继续收尾；若用户选择暂不处理，在日志中记录「遗留：结构问题」及建议。
+3. **生成任务日志**：使用 `scripts/generate_task_log.py`
+4. **六维度优化分析**：代码质量/架构设计/性能/测试/可维护性/技术债务
+
+> 若未绑定 Issue，需在收尾说明中明确记录原因与补建计划，并补充项目级任务视图的替代追踪方式。
 
 ---
 
@@ -37,6 +40,11 @@ description: 任务收尾规范，包含日志生成和优化分析。适用于�
 ### 完成汇报
 
 收尾完成后汇报日志位置和分析要点。
+
+### 与 W00 协同（自动 + 手动）
+
+- 收尾前检查是否存在绑定的 `Issue #`。
+- 若存在：由 `w05-task-closure` 直接执行任务关闭；必要时仅调用 `w00-workflow-checkpoint` 补最后一次 checkpoint 存档。
 
 ---
 
@@ -59,4 +67,5 @@ description: 任务收尾规范，包含日志生成和优化分析。适用于�
 ## 参考资料
 
 - `references/closure-workflow.md` - 收尾工作流详细说明（触发条件、结构检查、日志规范、六维度分析）
+- `../w00-workflow-checkpoint/SKILL.md` - Workflow GitHub Issues 基础存档能力（自动 + 手动）
 - `refactor-and-decompose/SKILL.md` - 收尾前结构检查约束
