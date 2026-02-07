@@ -1,7 +1,9 @@
 Skills 功能清单（按目录名排序）
 
+# npx install
 ```
-https://github.com/qiao-925/qiao-skills/tree/main/agent-collaboration
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-collaboration
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-workflow
 ```
 
 # 通用规则
