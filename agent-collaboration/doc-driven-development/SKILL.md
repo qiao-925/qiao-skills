@@ -1,6 +1,6 @@
 ---
 name: doc-driven-development
-description: 文档驱动开发规范，要求 Agent 在生成代码或修复 bug 前先查阅官方文档与示例，包含 API 验证流程和搜索策略。适用于接入第三方库、排查 API 报错、版本变更等场景。
+description: 文档驱动开发规范，要求 Agent 在生成代码或修复 bug 前先查阅官方文档与示例，包含 API 验证流程、搜索策略与 MCP 调用规则。适用于接入第三方库、排查 API 报错、版本变更等场景。
 ---
 
 # 文档驱动开发规范
@@ -20,8 +20,17 @@ description: 文档驱动开发规范，要求 Agent 在生成代码或修复 bu
 ### Agent 执行步骤
 
 1. **停止猜测**：明确要查的 API/模块名称和版本
-2. **查阅文档**：优先使用 `use context7` 抓取官方文档；若 MCP 不可用，改用 Firecrawl 抓取
+2. **查阅文档**：优先使用 `Context7` 获取官方文档；若不可用再用 `DuckDuckGo` 搜索官方来源并二次核验
 3. **基于文档实现**：依据文档的参数、返回值和示例实现或修复代码
+
+### MCP 调用基线（文档查阅场景）
+
+- 文档/API 问题优先使用 `Context7`，最新公告或入口信息再使用 `DuckDuckGo`
+- 单轮最多调用一种外部服务；确需多工具时串行并说明理由
+- 查询保持最小必要（关键词、结果数、时间窗、tokens）
+- 发生 429/限流时，退避 20 秒并缩小范围后重试
+- 输出中附“工具调用简报”（工具、输入摘要、参数、时间、来源、重试）
+- 默认离线优先，不上传敏感信息，遵守 robots/ToS 与隐私约束
 
 ---
 
@@ -66,3 +75,4 @@ index.query(question, similarity_top_k=10)
 
 - `references/api-verification.md` - API 验证流程详细说明（问题识别、文档查阅、实施修复）
 - `references/search-strategy.md` - 文档搜索策略与提问指引
+- `references/mcp-usage-rules.md` - MCP 调用规则（工具选择、速率限制、安全边界、失败降级与可追溯输出）

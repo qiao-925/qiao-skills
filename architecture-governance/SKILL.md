@@ -55,6 +55,13 @@ metadata:
 2. 采用依赖注入保持实现可替换
 3. 为潜在破坏性变更给出兼容方案
 
+### 项目初始化分析（项目级评估场景）
+
+1. 先做项目全景扫描：技术栈、目录结构、模块边界、依赖关系
+2. 明确业务目标与核心流程，识别关键组件、服务层与数据模型
+3. 以架构/质量/性能/安全/可扩展性五个维度输出评估结论
+4. 输出“优先级明确”的改进建议，避免一次性大改动
+
 ### 组合触发：联动 `single-responsibility`
 
 出现以下信号时，必须联动 `single-responsibility`：
@@ -103,11 +110,13 @@ metadata:
 - `references/layering-and-dependencies.md` - 分层与依赖方向基线
 - `references/change-impact-analysis.md` - 架构变更影响面分析模板
 - `references/interface-di-and-pluggability.md` - 契约、依赖注入与可插拔设计
+- `references/project-initial-analysis.md` - 项目初始化分析清单与评估维度（含可选命令模板）
 
 ---
 
 ## 路由说明
 
 - 架构分层、依赖方向、接口契约、DI、可插拔问题：优先触发本 skill。
+- 项目初始化分析、架构体检、配置基线检查：优先触发本 skill。
 - 职责拆分与边界澄清问题：联动 `single-responsibility`。
 - 仅局部职责优化且不改变架构边界时，可单独使用 `single-responsibility`。

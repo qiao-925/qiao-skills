@@ -8,6 +8,7 @@
 
 ```bash
 npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-skill-rules
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-collaboration
 npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-workflow
 npx skills add https://github.com/qiao-925/qiao-skills/tree/main/architecture-governance
 npx skills add https://github.com/qiao-925/qiao-skills/tree/main/code-complexity-control
@@ -24,13 +25,21 @@ npx skills add https://github.com/qiao-925/qiao-skills/tree/main/single-responsi
 
 ## 规则分组总览
 
-当前共 **8** 个分组、**21** 条规则。
+当前共 **9** 个分组、**21** 条规则。
 
 ### `agent-skill-rules`（1）
 
 组说明：Skill 设计与治理的总规范，负责标准、结构与质量门禁。
 
 - `agent-skill-rules`：Agent Skills 开放标准与治理规则。用于 skill 的创建、修改、重构、迁移、审计与维护，提供平台无关的结构标准、frontmatter 规范、渐进式披露与质量门禁。
+
+### `agent-collaboration`（3）
+
+组说明：Agent 协作通用规范，覆盖协作原则、思考引导与文档驱动开发。
+
+- `ai-collaboration-principles`：AI 协作总原则，强调角色定位、系统性分析、风险评估、授人以渔与质量优先。
+- `critical-thinking-guidance`：思考引导机制，先提引导问题再给答案，帮助用户保持主动思考。
+- `doc-driven-development`：文档驱动开发规范，先查官方文档与示例再编码/修复，并遵循 MCP 调用规则（优先 Context7）。
 
 ### `agent-workflow`（6）
 
@@ -49,13 +58,10 @@ npx skills add https://github.com/qiao-925/qiao-skills/tree/main/single-responsi
 
 - `architecture-governance`：通用架构治理规范，提供分层约束、影响面分析、接口契约与依赖注入基线。
 
-### `code-complexity-control`（7）
+### `code-complexity-control`（4）
 
-组说明：复杂度控制与工程协作规范，强调简化、聚焦与高质量实现。
+组说明：复杂度控制规范，强调简化、聚焦与可维护实现。
 
-- `ai-collaboration-principles`：AI 协作总原则，强调理解需求、质量把关、专注与优先级管理。
-- `critical-thinking-guidance`：思考引导机制，先提引导问题再给答案，帮助用户保持主动思考。
-- `doc-driven-development`：文档驱动开发规范，先查官方文档与示例再编码/修复。
 - `core-first-simplicity`：核心优先简化原则，融合 KISS 与“最小光辉点”做跨层级复杂度控制。
 - `file-header-comments`：代码文件顶部注释规范，要求简洁说明文件用途与主要接口。
 - `file-size-limit`：代码文件行数硬限制（≤300 行），超限必须拆分并先给方案。
