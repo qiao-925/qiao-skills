@@ -1,51 +1,89 @@
-Skills 功能清单（按目录名排序）
+## qiao-skills
 
-# npx install
-```
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-collaboration
+面向 Agent 的技能仓库，采用“按分组目录安装”的组织方式。
+
+## npx 安装
+
+### 按分组安装（推荐）
+
+```bash
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-skill-rules
 npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-workflow
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/architecture-governance
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/code-complexity-control
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/language-engineering-python
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/project-guide-assemble
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/project-guide-cs-rag
+npx skills add https://github.com/qiao-925/qiao-skills/tree/main/single-responsibility
 ```
 
-# 通用规则
+### 说明
 
-## 
-agent-skill-rules
+- 当前仓库以“分组目录”为主，每个分组目录下可包含 1 个或多个规则。
+- `single-responsibility` 虽只有 1 条规则，也按目录方式安装即可。
 
-## 架构，系统设计，程序设计
-architecture-governance: 通用架构治理规范；抽象分层约束、影响面分析、接口契约、依赖注入与可插拔设计，适用于跨项目复用。
-single-responsibility: 单一职责原则；保证文件/函数/模块职责清晰，避免循环依赖；可独立使用，也可由 architecture-governance 联动触发。
+## 规则分组总览
 
-## 工作流基础能力
-w00-workflow-checkpoint: Workflow Checkpoint 基础能力（GitHub Issues）；仅负责 checkpoint 存档与恢复。适用于所有 workflow 步骤，支持自动触发 + 手动调用。
+当前共 **8** 个分组、**21** 条规则。
 
-## 工作流（Workflow Group W）
-w01-requirement-discovery: 需求发现；在迷茫/探索场景用角色扮演+ROI 评估产出高 ROI 方向（对话式输出，不生成文档）。
-w02-task-planning: 任务规划；复杂任务（>=3 步）生成计划书/Checkpoint/决策点/文件清单；含 generate_task_plan.py。
-w03-testing-and-diagnostics: 正式测试与诊断；先建 TEST 记录文档，再按变更跑单测/浏览器测；失败进入最多三轮诊断；含 run_test_workflow.py/run_browser_tests.py/auto_diagnose.py。
-w04-review-gate: 交付完成且存在 git 未提交变更时，提示“新开 Agent 做代码审查”，审查通过后再收尾。
-w05-task-closure: 收尾流程；结构检查通过后生成任务日志与六维度复盘分析；含 generate_task_log.py。
+### `agent-skill-rules`（1）
 
-## 文件，文档规则
-documentation-standards: Markdown 文档规范（标题编号、日期格式、引用/代码块规范、篇幅控制与提交前检查）。
-file-header-comments: 代码文件顶部注释规范；要求用简短注释说明文件用途/主要接口/可选示例，避免长篇流程描述。
-file-operations: 文件操作门禁；任何新建/修改/删除前必须“授权→变更预览→确认”；重命名含 emoji 的目录优先用 Python 脚本处理。
-file-size-limit: 硬限制：单个代码文件必须 <= 300 行；超限必须拆分并先给拆分方案。
-folder-naming: 文件夹命名规范（图标+名称+统计信息）；用于新建/重命名知识库目录或做目录统计命名。
+组说明：Skill 设计与治理的总规范，负责标准、结构与质量门禁。
 
-## 项目规则
-project-principles: 项目聚焦原则；围绕“最小光辉点”，砍掉偏离核心的需求，避免过度设计，允许临时方案。
+- `agent-skill-rules`：Agent Skills 开放标准与治理规则。用于 skill 的创建、修改、重构、迁移、审计与维护，提供平台无关的结构标准、frontmatter 规范、渐进式披露与质量门禁。
 
-## 一般编码规则
+### `agent-workflow`（6）
 
-## python
-python-coding-standards: Python 代码规范；强制类型标注、日志规范（禁用 print）、命名与结构基线等。
+组说明：任务执行全流程工作流（W00-W05），覆盖读档、规划、测试、审查与收尾。
 
-# 项目定制规则
+- `w00-workflow-checkpoint`：Workflow Checkpoint 基础能力（聚焦存档与读档），在 GitHub Issues 中记录进展并恢复上下文。
+- `w01-requirement-discovery`：需求发现规范，通过角色扮演帮助用户在探索场景发现高 ROI 功能方向。
+- `w02-task-planning`：复杂任务规划规范，覆盖需求决策、计划书创建与执行路径。
+- `w03-testing-and-diagnostics`：测试与诊断工作流，包含单测/浏览器测与失败自动诊断。
+- `w04-review-gate`：交付后审查门禁，提示新开 Agent 审查未提交代码后再收尾。
+- `w05-task-closure`：任务收尾规范，包含日志生成与优化分析。
 
-## assemble skills
-prompt-recommendation: Prompt 智能推荐；根据任务类型推荐 1–3 个 Prompt 并给执行步骤（用于写作/优化/总结/组织内容等）。
-whetstone: 批注式整理；把“原文+你的批注”整理成“编号批注+对应原文片段”，并输出 AI 总结（触发词：磨刀石/批注式整理等）。
+### `architecture-governance`（1）
 
+组说明：通用架构与分层治理能力，面向跨项目复用与演进控制。
 
-## 项目专用架构规则
-cs-rag-architecture-guideline: 【项目主入口】CS-RAG 项目架构总规范；已无损承载 cognition+design 全量内容，按“认知→设计→复核”执行。
+- `architecture-governance`：通用架构治理规范，提供分层约束、影响面分析、接口契约与依赖注入基线。
+
+### `code-complexity-control`（7）
+
+组说明：复杂度控制与工程协作规范，强调简化、聚焦与高质量实现。
+
+- `ai-collaboration-principles`：AI 协作总原则，强调理解需求、质量把关、专注与优先级管理。
+- `critical-thinking-guidance`：思考引导机制，先提引导问题再给答案，帮助用户保持主动思考。
+- `doc-driven-development`：文档驱动开发规范，先查官方文档与示例再编码/修复。
+- `core-first-simplicity`：核心优先简化原则，融合 KISS 与“最小光辉点”做跨层级复杂度控制。
+- `file-header-comments`：代码文件顶部注释规范，要求简洁说明文件用途与主要接口。
+- `file-size-limit`：代码文件行数硬限制（≤300 行），超限必须拆分并先给方案。
+- `project-principles`：兼容入口，已并入 `core-first-simplicity` 的 `project-level`。
+
+### `language-engineering-python`（2）
+
+组说明：Python 语言工程实践规范，覆盖编码标准与工具链加速。
+
+- `python-coding-standards`：Python 编码规范，包括类型提示、日志规范、命名约定与代码结构。
+- `python-uv-acceleration`：Python 生态加速规范，默认使用 `uv` 替代 `pip`/传统 `venv` 以提升效率。
+
+### `project-guide-assemble`（2）
+
+组说明：Assemble 项目定制技能，聚焦内容组织、提示词编排与整理产出。
+
+- `prompt-recommendation`：Prompt 智能推荐与快速决策规则，适用于写作/优化/总结等任务。
+- `whetstone`：批注式整理技能，将“原文 + 批注”整理为结构化笔记并生成 AI 总结。
+
+### `project-guide-cs-rag`（1）
+
+组说明：CS-RAG 项目专用架构规则入口，统一项目内架构认知与设计约束。
+
+- `cs-rag-architecture-guideline`：CS-RAG 项目专用架构总规范，统一认知、设计与治理约束。
+
+### `single-responsibility`（1）
+
+组说明：单一职责专项规则，聚焦文件/函数/模块职责边界清晰化。
+
+- `single-responsibility`：单一职责原则，确保文件、函数、模块职责清晰单一。
+
