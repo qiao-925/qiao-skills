@@ -26,3 +26,6 @@ dist/
 .claude/
 .codex/
 .cursor
+
+# 忽略 skills 本地(project scope)安装目录，避免污染业务仓库
+.agents/

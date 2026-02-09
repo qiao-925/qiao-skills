@@ -1,31 +1,55 @@
 ## qiao-skills
 
-面向 Agent 的技能仓库，采用“按分组目录安装”的组织方式。
+面向 Agent 的技能仓库，采用“分层 + 分组目录安装”的组织方式。
+
+## 目录分层
+
+- `global/`：仅放通用技能，允许全局批量安装。
+- `project/`：仅放项目技能，不参与全局批量安装。
 
 ## npx 安装
 
-### 按分组安装（推荐）
+### 一键安装（global 全量，推荐）
 
 ```bash
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-skill-rules
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-collaboration
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-workflow
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/architecture-governance
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/code-complexity-control
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/language-engineering-python
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/project-guide-assemble
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/project-guide-cs-rag
-npx skills add https://github.com/qiao-925/qiao-skills/tree/main/single-responsibility
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/global --all --full-depth --global --yes
 ```
 
-### 说明
+- 这是**通用技能的全部安装**，来源仅 `global/`，并且安装范围是 `global`（不写入当前项目目录）。
+- 分级在安装时一次完成，不需要安装后再修复。
 
-- 当前仓库以“分组目录”为主，每个分组目录下可包含 1 个或多个规则。
-- `single-responsibility` 虽只有 1 条规则，也按目录方式安装即可。
+### 参数说明（按需取舍）
 
+```bash
+npx -y skills add <repo> [--all] [--full-depth] [--global] [--yes] [--agent <agents...>] [--skill <skills...>]
+```
+
+- `--global`：用户级安装（建议默认开启）。
+- `--all`：安装仓库内全部可发现 skills。
+- `--full-depth`：深度扫描子目录，避免漏装。
+- `--yes`：跳过交互确认。
+- `--agent`：按 agent 过滤安装。
+- `--skill`：只安装指定 skill（与 `--all` 二选一）。
+
+### 项目安装（手动，不走批量）
+
+- 项目性技能建议进入目标项目后按需安装（不做一键全量）。
+- 建议优先按分组目录安装，避免把不需要的规则带进项目。
+
+```bash
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/project-guide-assemble --yes
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/project-guide-cs-rag --yes
+```
+
+### global / project 隔离策略
+
+- `global`：用于通用技能批量安装（本 README 的一键命令仅扫描 `global/`）。
+- `project`：用于项目内按需手动安装，不建议做全量批量。
+- 项目仓库建议 `.gitignore` 添加 `.agents/`，避免安装产物进入版本控制。
+就是
 ## 规则分组总览
 
-当前共 **9** 个分组、**21** 条规则。
+当前共 **9** 个分组、**21** 条规则（`global` 7 组，`project` 2 组）。
 
 ### `agent-skill-rules`（1）
 
