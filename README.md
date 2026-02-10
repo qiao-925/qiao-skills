@@ -9,6 +9,12 @@
 
 ## npx 安装
 
+### 已安装列表
+
+```bash
+npx skills list
+```
+
 ### 一键安装（global 全量，推荐）
 
 ```bash
@@ -17,6 +23,20 @@ npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/global --all
 
 - 这是**通用技能的全部安装**，来源仅 `global/`，并且安装范围是 `global`（不写入当前项目目录）。
 - 分级在安装时一次完成，不需要安装后再修复。
+
+### 一键清空（按作用域选择）
+
+```bash
+# 清空全局（global）已安装 skills
+npx -y skills remove --all --global --yes
+
+# 清空当前项目已安装 skills
+npx -y skills remove --all --yes
+```
+
+- `--all`：等价于 `--skill '*' --agent '*' -y`，会对该作用域做全量移除。
+- `--global`：仅清空用户级（global）安装；不加则只影响当前项目。
+- 建议清空前先执行 `npx -y skills ls -g` 或 `npx -y skills ls` 确认影响范围。
 
 ### 参数说明（按需取舍）
 
