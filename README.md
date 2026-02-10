@@ -66,6 +66,31 @@ npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/proj
 - `global`：用于通用技能批量安装（本 README 的一键命令仅扫描 `global/`）。
 - `project`：用于项目内按需手动安装，不建议做全量批量。
 - 项目仓库建议 `.gitignore` 添加 `.agents/`，避免安装产物进入版本控制。
+
+### 全局 gitignore（强烈建议）
+
+为避免各类工具在项目根目录生成的隐藏目录进入 `git status`，建议配置全局忽略。
+本仓库提供模板文件：`gitignore-global.example`。
+
+**PowerShell（Windows）**
+
+```powershell
+Copy-Item -Force .\gitignore-global.example $env:USERPROFILE\.gitignore_global
+git config --global core.excludesfile "$env:USERPROFILE\.gitignore_global"
+```
+
+**Bash（macOS/Linux）**
+
+```bash
+cp -f ./gitignore-global.example ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
+```
+
+如果你已经有全局忽略文件，请改为合并内容（追加即可）：
+
+```powershell
+Get-Content .\gitignore-global.example | Add-Content $env:USERPROFILE\.gitignore_global
+```
 就是
 ## 规则分组总览
 
