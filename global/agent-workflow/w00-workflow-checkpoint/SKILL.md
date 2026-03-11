@@ -44,7 +44,7 @@ metadata:
 - 仓库名写法：沿用仓库原始定义，不额外做大小写转换
 - 标签：`status:*` + `type:*` + `repo:*` + `wf:*`（可选：`term:*`）
 - `wf:*` 规范：使用完整阶段名（示例：`wf:w02-task-planning`）
-- 最小字段：`Goal / Next`
+- 最小字段：`Goal / Next / Last Turn（最后一轮对话）`
 
 ---
 
@@ -54,6 +54,7 @@ metadata:
 
 1. **存档（checkpoint）**
    - 写入：`已完成 / 阻塞 / 下一步`
+   - 追加：`Last Turn`（至少保留最后一轮对话内容：用户最后一次输入 + Agent 最后一次输出）
    - 若阻塞：状态建议更新为 `status:blocked`
 
 2. **读档（resume）**
@@ -79,7 +80,7 @@ metadata:
 
 ### 命令参考（统一使用 `gh issue` 原生命令）
 
-- 存档：`gh issue comment <id> -R <owner>/<repo> --body "检查点 YYYY-MM-DD HH:mm\n已完成: ...\n阻塞: ...\n下一步: ..."`
+- 存档：`gh issue comment <id> -R <owner>/<repo> --body "检查点 YYYY-MM-DD HH:mm\nGoal: ...\n已完成: ...\n阻塞: ...\n下一步: ...\n\nLast Turn (verbatim)\nUser: ...\nAgent: ..."`
 - 读档：`gh issue view <id> -R <owner>/<repo> --comments`
 - 候选列表：`gh issue list -R <owner>/<repo> --state open --label "repo:<repo>" --limit 20 --json number,title,updatedAt,labels,url`
 
