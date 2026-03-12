@@ -24,6 +24,20 @@ npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/global --all
 - 这是**通用技能的全部安装**，来源仅 `global/`，并且安装范围是 `global`（不写入当前项目目录）。
 - 分级在安装时一次完成，不需要安装后再修复。
 
+### 更新已安装 skills（推荐）
+
+```bash
+# 检查全局（global）已安装 skills 是否有更新
+npx -y skills check --global
+
+# 一键更新全局（global）已安装 skills
+npx -y skills update --all --global --yes
+```
+
+- `check`：只检查更新，不改动当前安装内容。
+- `update`：更新已安装 skills，适合挂到定时任务中定期执行。
+- 若只想更新当前项目作用域，去掉 `--global` 即可。
+
 ### 一键清空（按作用域选择）
 
 ```bash
@@ -60,6 +74,25 @@ npx -y skills add <repo> [--all] [--full-depth] [--global] [--yes] [--agent <age
 npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/project-guide-assemble --yes
 npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/project-guide-cs-rag --yes
 ```
+
+### 项目定制 skills 更新
+
+在目标项目根目录执行：
+
+```bash
+# 查看当前项目已安装的 skills
+npx -y skills ls
+
+# 检查当前项目的已安装 skills 是否有更新
+npx -y skills check
+
+# 一键更新当前项目的已安装 skills
+npx -y skills update --all --yes
+```
+
+- 项目定制 skills 不要带 `--global`，否则会切到全局作用域。
+- 若要做自动更新，建议把命令挂到目标项目自己的定时任务中执行。
+- 执行前可先用 `npx -y skills ls` 确认当前目录下确实已经安装了项目 skills。
 
 ### global / project 隔离策略
 
@@ -161,4 +194,3 @@ Get-Content .\gitignore-global.example | Add-Content $env:USERPROFILE\.gitignore
 组说明：单一职责专项规则，聚焦文件/函数/模块职责边界清晰化。
 
 - `single-responsibility`：单一职责原则，确保文件、函数、模块职责清晰单一。
-
