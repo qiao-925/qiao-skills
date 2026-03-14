@@ -1,30 +1,26 @@
-## qiao-skills
+# qiao-skills
 
-面向 Agent 的技能仓库，采用“分层 + 分组目录安装”的组织方式。
+> 面向 Agent 的技能仓库，提供可复用的全局规范与项目定制 skill，支持按 `global/` 和 `project/` 分层安装。
 
-## 目录分层
+## 快速开始
 
-- `global/`：仅放通用技能，允许全局批量安装。
-- `project/`：仅放项目技能，不参与全局批量安装。
-
-## npx 安装
-
-### 已安装列表
-
-```bash
-npx skills list
-```
-
-### 一键安装（global 全量，推荐）
+### 一键安装 `global/` 全量（推荐）
 
 ```bash
 npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/global --all --full-depth --global --yes
 ```
 
-- 这是**通用技能的全部安装**，来源仅 `global/`，并且安装范围是 `global`（不写入当前项目目录）。
-- 分级在安装时一次完成，不需要安装后再修复。
+- 该命令只扫描 `global/`，不会把 `project/` 里的项目定制技能装进全局作用域。
+- `--full-depth` 会递归发现分组目录下的 skills，适合当前仓库这种“分组 + 子目录”结构。
 
-### 更新已安装 skills（推荐）
+### 按项目安装定制 skills
+
+```bash
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/project-guide-assemble --yes
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/project-guide-cs-rag --yes
+```
+
+### 更新已安装 skills
 
 ```bash
 # 检查全局（global）已安装 skills 是否有更新
@@ -32,78 +28,66 @@ npx -y skills check --global
 
 # 一键更新全局（global）已安装 skills
 npx -y skills update --all --global --yes
-```
 
-- `check`：只检查更新，不改动当前安装内容。
-- `update`：更新已安装 skills，适合挂到定时任务中定期执行。
-- 若只想更新当前项目作用域，去掉 `--global` 即可。
-
-### 一键清空（按作用域选择）
-
-```bash
-# 清空全局（global）已安装 skills
-npx -y skills remove --all --global --yes
-
-# 清空当前项目已安装 skills
-npx -y skills remove --all --yes
-```
-
-- `--all`：等价于 `--skill '*' --agent '*' -y`，会对该作用域做全量移除。
-- `--global`：仅清空用户级（global）安装；不加则只影响当前项目。
-- 建议清空前先执行 `npx -y skills ls -g` 或 `npx -y skills ls` 确认影响范围。
-
-### 参数说明（按需取舍）
-
-```bash
-npx -y skills add <repo> [--all] [--full-depth] [--global] [--yes] [--agent <agents...>] [--skill <skills...>]
-```
-
-- `--global`：用户级安装（建议默认开启）。
-- `--all`：安装仓库内全部可发现 skills。
-- `--full-depth`：深度扫描子目录，避免漏装。
-- `--yes`：跳过交互确认。
-- `--agent`：按 agent 过滤安装。
-- `--skill`：只安装指定 skill（与 `--all` 二选一）。
-
-### 项目安装（手动，不走批量）
-
-- 项目性技能建议进入目标项目后按需安装（不做一键全量）。
-- 建议优先按分组目录安装，避免把不需要的规则带进项目。
-
-```bash
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/project-guide-assemble --yes
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/project/project-guide-cs-rag --yes
-```
-
-### 项目定制 skills 更新
-
-在目标项目根目录执行：
-
-```bash
-# 查看当前项目已安装的 skills
-npx -y skills ls
-
-# 检查当前项目的已安装 skills 是否有更新
+# 检查当前项目已安装的 skills 是否有更新
 npx -y skills check
 
-# 一键更新当前项目的已安装 skills
+# 一键更新当前项目已安装的 skills
 npx -y skills update --all --yes
 ```
 
-- 项目定制 skills 不要带 `--global`，否则会切到全局作用域。
-- 若要做自动更新，建议把命令挂到目标项目自己的定时任务中执行。
-- 执行前可先用 `npx -y skills ls` 确认当前目录下确实已经安装了项目 skills。
+## 目录结构说明
 
-### global / project 隔离策略
+```text
+.
+├── README.md
+├── gitignore-global.example
+├── global
+│   ├── agent-collaboration
+│   │   ├── ai-collaboration-principles
+│   │   ├── critical-thinking-guidance
+│   │   ├── doc-driven-development
+│   │   ├── review-separation-guard
+│   │   └── roi-value-density
+│   ├── agent-skill-rules
+│   ├── architecture-governance
+│   ├── code-complexity-control
+│   │   ├── core-first-simplicity
+│   │   ├── file-header-comments
+│   │   ├── file-size-limit
+│   │   └── project-principles
+│   ├── language-engineering-python
+│   │   ├── python-coding-standards
+│   │   └── python-uv-acceleration
+│   ├── project-documentation
+│   │   └── technical-readme-structure
+│   └── single-responsibility
+└── project
+    ├── project-guide-assemble
+    │   ├── prompt-recommendation
+    │   └── whetstone
+    └── project-guide-cs-rag
+        └── cs-rag-architecture-guideline
+```
 
-- `global`：用于通用技能批量安装（本 README 的一键命令仅扫描 `global/`）。
-- `project`：用于项目内按需手动安装，不建议做全量批量。
-- 项目仓库建议 `.gitignore` 添加 `.agents/`，避免安装产物进入版本控制。
+上面的目录树主要展示“分组和 skill 名称”，各目录职责如下：
 
-### 全局 gitignore（强烈建议）
+- `README.md`：仓库入口文档，负责说明安装方式、目录组织和使用约定。
+- `gitignore-global.example`：全局 Git 忽略模板，避免 `.agents/` 等安装产物进入版本控制。
+- `global/`：通用 skill 根目录，适合跨项目复用和全局安装。
+- `global/agent-collaboration/`：Agent 协作类规则，覆盖协作原则、思考引导、文档驱动开发、审查隔离和 ROI 判断。
+- `global/agent-skill-rules/`：skill 本身的设计与治理规范，约束结构、frontmatter、渐进式披露和质量门禁。
+- `global/architecture-governance/`：架构治理类规则，聚焦分层约束、接口契约、依赖方向和影响面分析。
+- `global/code-complexity-control/`：复杂度控制类规则，约束简化原则、文件头注释、文件大小和项目聚焦。
+- `global/language-engineering-python/`：Python 工程实践规则，覆盖编码标准与 `uv` 工具链加速。
+- `global/project-documentation/`：项目文档规则分组，目前包含技术项目 README 结构规范。
+- `global/single-responsibility/`：单一职责专项规则，强调文件、函数、模块职责边界清晰。
+- `project/`：项目定制 skill 根目录，不建议全局批量安装，适合进入具体项目后按需使用。
+- `project/project-guide-assemble/`：Assemble 项目相关技能，偏内容组织、提示词编排与结构化整理。
+- `project/project-guide-cs-rag/`：CS-RAG 项目专用技能，聚焦该项目的架构认知与设计约束。
+- 每个 skill 目录都以 `SKILL.md` 为入口，必要时再挂接 `references/`、`scripts/`、`assets/` 提供补充说明或辅助资源。
 
-为避免各类工具在项目根目录生成的隐藏目录进入 `git status`，建议配置全局忽略。
-本仓库提供模板文件：`gitignore-global.example`。
+### 全局 gitignore（建议）
 
 **PowerShell（Windows）**
 
@@ -118,79 +102,3 @@ git config --global core.excludesfile "$env:USERPROFILE\.gitignore_global"
 cp -f ./gitignore-global.example ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
 ```
-
-如果你已经有全局忽略文件，请改为合并内容（追加即可）：
-
-```powershell
-Get-Content .\gitignore-global.example | Add-Content $env:USERPROFILE\.gitignore_global
-```
-就是
-## 规则分组总览
-
-当前共 **9** 个分组、**21** 条规则（`global` 7 组，`project` 2 组）。
-
-### `agent-skill-rules`（1）
-
-组说明：Skill 设计与治理的总规范，负责标准、结构与质量门禁。
-
-- `agent-skill-rules`：Agent Skills 开放标准与治理规则。用于 skill 的创建、修改、重构、迁移、审计与维护，提供平台无关的结构标准、frontmatter 规范、渐进式披露与质量门禁。
-
-### `agent-collaboration`（3）
-
-组说明：Agent 协作通用规范，覆盖协作原则、思考引导与文档驱动开发。
-
-- `ai-collaboration-principles`：AI 协作总原则，强调角色定位、系统性分析、风险评估、授人以渔与质量优先。
-- `critical-thinking-guidance`：思考引导机制，先提引导问题再给答案，帮助用户保持主动思考。
-- `doc-driven-development`：文档驱动开发规范，先查官方文档与示例再编码/修复，并遵循 MCP 调用规则（优先 Context7）。
-
-### `agent-workflow`（6）
-
-组说明：任务执行全流程工作流（W00-W05），覆盖读档、规划、测试、审查与收尾。
-
-- `w00-workflow-checkpoint`：Workflow Checkpoint 基础能力（聚焦存档与读档），在 GitHub Issues 中记录进展并恢复上下文。
-- `w01-requirement-discovery`：需求发现规范，通过角色扮演帮助用户在探索场景发现高 ROI 功能方向。
-- `w02-task-planning`：复杂任务规划规范，覆盖需求决策、计划书创建与执行路径。
-- `w03-testing-and-diagnostics`：测试与诊断工作流，包含单测/浏览器测与失败自动诊断。
-- `w04-review-gate`：交付后审查门禁，提示新开 Agent 审查未提交代码后再收尾。
-- `w05-task-closure`：任务收尾规范，包含日志生成与优化分析。
-
-### `architecture-governance`（1）
-
-组说明：通用架构与分层治理能力，面向跨项目复用与演进控制。
-
-- `architecture-governance`：通用架构治理规范，提供分层约束、影响面分析、接口契约与依赖注入基线。
-
-### `code-complexity-control`（4）
-
-组说明：复杂度控制规范，强调简化、聚焦与可维护实现。
-
-- `core-first-simplicity`：核心优先简化原则，融合 KISS 与“最小光辉点”做跨层级复杂度控制。
-- `file-header-comments`：代码文件顶部注释规范，要求简洁说明文件用途与主要接口。
-- `file-size-limit`：代码文件行数硬限制（≤300 行），超限必须拆分并先给方案。
-- `project-principles`：兼容入口，已并入 `core-first-simplicity` 的 `project-level`。
-
-### `language-engineering-python`（2）
-
-组说明：Python 语言工程实践规范，覆盖编码标准与工具链加速。
-
-- `python-coding-standards`：Python 编码规范，包括类型提示、日志规范、命名约定与代码结构。
-- `python-uv-acceleration`：Python 生态加速规范，默认使用 `uv` 替代 `pip`/传统 `venv` 以提升效率。
-
-### `project-guide-assemble`（2）
-
-组说明：Assemble 项目定制技能，聚焦内容组织、提示词编排与整理产出。
-
-- `prompt-recommendation`：Prompt 智能推荐与快速决策规则，适用于写作/优化/总结等任务。
-- `whetstone`：批注式整理技能，将“原文 + 批注”整理为结构化笔记并生成 AI 总结。
-
-### `project-guide-cs-rag`（1）
-
-组说明：CS-RAG 项目专用架构规则入口，统一项目内架构认知与设计约束。
-
-- `cs-rag-architecture-guideline`：CS-RAG 项目专用架构总规范，统一认知、设计与治理约束。
-
-### `single-responsibility`（1）
-
-组说明：单一职责专项规则，聚焦文件/函数/模块职责边界清晰化。
-
-- `single-responsibility`：单一职责原则，确保文件、函数、模块职责清晰单一。
