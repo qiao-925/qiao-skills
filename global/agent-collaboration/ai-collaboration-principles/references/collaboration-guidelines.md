@@ -146,6 +146,6 @@
 
 ## 跨 Skill 路由指引
 
-- 需要先提问再回答：转 `../../critical-thinking-guidance/SKILL.md`
+- 需要先判断是否应引导，再确认后提问/回答：转 `../../critical-thinking-guidance/SKILL.md`
 - 涉及架构边界/依赖方向：转 `../../../architecture-governance/SKILL.md`
 - 涉及外部 API/版本差异：转 `../../doc-driven-development/SKILL.md`
