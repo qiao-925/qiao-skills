@@ -49,6 +49,9 @@ npx -y skills update --all --yes
 │   │   ├── doc-driven-development
 │   │   ├── review-separation-guard
 │   │   └── roi-value-density
+│   ├── agent-workflow
+│   │   ├── checkpoint-persistence
+│   │   └── workflow
 │   ├── agent-skill-rules
 │   ├── architecture-governance
 │   ├── code-complexity-control
@@ -76,6 +79,7 @@ npx -y skills update --all --yes
 - `gitignore-global.example`：全局 Git 忽略模板，避免 `.agents/` 等安装产物进入版本控制。
 - `global/`：通用 skill 根目录，适合跨项目复用和全局安装。
 - `global/agent-collaboration/`：Agent 协作类规则，覆盖协作原则、思考引导、文档驱动开发、审查隔离和 ROI 判断。
+- `global/agent-workflow/`：任务阶段路由与关键节点持久化规则，覆盖 `workflow` 与 `checkpoint-persistence` 两个 skill。
 - `global/agent-skill-rules/`：skill 本身的设计与治理规范，约束结构、frontmatter、渐进式披露和质量门禁。
 - `global/architecture-governance/`：架构治理类规则，聚焦分层约束、接口契约、依赖方向和影响面分析。
 - `global/code-complexity-control/`：复杂度控制类规则，约束简化原则、文件头注释、文件大小和项目聚焦。
