@@ -35,6 +35,15 @@ npx -y skills update --all --global --yes
 
 ### 全局 gitignore（建议）
 
+
+**查看当前配置**
+
+```bash
+git config --global --get core.excludesfile
+```
+
+输出为空表示当前还没有设置全局 gitignore。
+
 **PowerShell（Windows）**
 
 ```powershell
@@ -48,6 +57,7 @@ git config --global core.excludesfile "$env:USERPROFILE\.gitignore_global"
 cp -f ./gitignore-global.example ~/.gitignore_global
 git config --global core.excludesfile ~/.gitignore_global
 ```
+
 
 
 ## 核心特性
@@ -104,38 +114,3 @@ qiao-skills
 所以从这个角度看，`qiao-skills` 与其说只是一个技能仓库，倒不如说也是一份迁移记录：看一套方法，怎样从 Prompt 工程里走出来，住进 Skill 工程里，而把那些真正不该丢的东西，仍旧带在身上。
 
 > 注：本节语气参考鲁迅《随便翻翻》的议论笔调，仅借其说理节奏，不涉原文内容。
-
-## 场景映射的定位
-
-`scenario-mapping-log` 在当前体系里，不是一个强控制路由器，而是一层轻量的解释与优化机制。
-
-它主要做三件事：
-
-- 为任务补一个人类可理解的 `primary scenario`
-- 维护这个场景理论上应命中的 skill 预期
-- 把运行中的实际命中与预期做简单比对，用于排查和优化
-
-这层设计的核心价值，不是“控制 skill 必须怎么走”，而是提升 skill 命中的可解释性，并据此做针对性的优化。因此它本身也必须保持可理解，不能为了看起来完整，就把解释层做成一个过重的小框架。
-
-当前仓库对场景映射的约束是：
-
-- 场景按“当前主问题”划分，不按世界的完整分类学划分
-- 映射表只保留 `Core / Conditional` 两层
-- 运行比对默认只保留 `expected / actual / matched / missing / unexpected`
-- 如果当前任务没有稳定主场景，或没有可靠命中记录，就不要强行套表
-
-### 全局 gitignore（建议）
-
-**PowerShell（Windows）**
-
-```powershell
-Copy-Item -Force .\gitignore-global.example $env:USERPROFILE\.gitignore_global
-git config --global core.excludesfile "$env:USERPROFILE\.gitignore_global"
-```
-
-**Bash（macOS/Linux）**
-
-```bash
-cp -f ./gitignore-global.example ~/.gitignore_global
-git config --global core.excludesfile ~/.gitignore_global
-```

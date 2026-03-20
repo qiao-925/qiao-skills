@@ -10,7 +10,9 @@
 .continue
 .crush
 .cursor
+.copilot
 .factory
+.gemini
 .goose
 .iflow
 .junie
