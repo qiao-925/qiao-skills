@@ -1,6 +1,8 @@
 ---
 name: agent-skill-rules
 description: Agent Skills 开放标准与治理规则。用于 skill 的创建、修改、重构、迁移、审计与维护，并在创建前判断需求应落到自动化、项目级规则、通用或项目私有 skill 还是单次 prompt，提供平台无关的结构标准、frontmatter 规范、渐进式披露与质量门禁。
+metadata:
+  type: procedural
 ---
 
 # Agent Skill Rules

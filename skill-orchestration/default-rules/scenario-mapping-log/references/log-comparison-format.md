@@ -12,7 +12,7 @@
 
 ### `actual`
 
-- 来源：运行时真实命中记录
+- 来源：运行时真实命中记录；来源顺序见 `actual-hit-sources.md`
 - 含义：这次任务里实际上命中的 skill
 - 注意：如果没有可靠来源，写 `unavailable`
 
@@ -56,6 +56,16 @@ Unexpected:
 - none
 ```
 
+若需要把比对结果留档，允许附加两项可选字段：
+
+```text
+Actual Source:
+- runtime-log / checkpoint / task-log / manual-review
+
+Reliability:
+- high / medium / low
+```
+
 如果没有可靠运行记录：
 
 ```text
@@ -96,3 +106,4 @@ Notes:
 - 这是解释与优化格式，不是底层 telemetry 协议。
 - 它只负责比对命中预期，不负责证明结果质量。
 - 如果后续需要评估“结果虽然没命中但实际上已经做到了”，那属于第二层诊断，不放进默认格式。
+- 如果没有底层 telemetry，也不要求为此发明复杂协议；用 `actual-hit-sources.md` 中的最小日志即可。

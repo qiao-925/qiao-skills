@@ -2,6 +2,7 @@
 
 > 这张表只维护“场景 -> 预期 skill”的映射关系。
 > 运行中的命中比对格式见 [log-comparison-format.md](log-comparison-format.md)。
+> `actual` 的来源顺序与最小记录模板见 [actual-hit-sources.md](actual-hit-sources.md)。
 > 如果当前任务还没有稳定主场景，先不要强行套表。
 
 ## 1. 横切默认规则

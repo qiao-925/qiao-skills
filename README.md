@@ -2,6 +2,80 @@
 
 > 面向 Agent 的技能仓库，提供可复用的默认规则、skill-units 与少量独立技能，也记录从 Prompt 工程向 Skill 工程演化的迁移实践。
 
+## 快速开始
+
+### 安装 `skill-orchestration/` 全量（推荐）
+
+```bash
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/skill-orchestration --all --full-depth --global --yes
+```
+
+- 该命令会递归安装 `default-rules/` 与 `skill-units/` 下的全部 skills。
+- `--full-depth` 适合当前仓库这种“分组 + 子目录”结构。
+
+### 按需安装根目录独立技能
+
+```bash
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-skill-rules --global --yes
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/github-checkpoint-persistence --global --yes
+```
+
+- `agent-skill-rules/` 是 skill 设计与治理规范。
+- `github-checkpoint-persistence/` 是独立的 checkpoint 持久化技能，目前不放在 `skill-orchestration/` 下。
+
+### 更新已安装 skills
+
+```bash
+# 检查全局已安装 skills 是否有更新
+npx -y skills check --global
+
+# 一键更新全局已安装 skills
+npx -y skills update --all --global --yes
+```
+
+### 全局 gitignore（建议）
+
+**PowerShell（Windows）**
+
+```powershell
+Copy-Item -Force .\gitignore-global.example $env:USERPROFILE\.gitignore_global
+git config --global core.excludesfile "$env:USERPROFILE\.gitignore_global"
+```
+
+**Bash（macOS/Linux）**
+
+```bash
+cp -f ./gitignore-global.example ~/.gitignore_global
+git config --global core.excludesfile ~/.gitignore_global
+```
+
+
+## 核心特性
+
+- **默认规则常驻**：`critical-thinking-evaluation`、`source-quality-control`、`value-dense-delivery`、`readability-first-writing`、`human-steered-execution` 等规则负责跨任务质量基线。
+- **能力单元按需触发**：把 README、架构、Python、研究、决策等高频主题拆成独立 `skill-unit`，避免一个“大而全”总 skill。
+- **治理与迁移分层**：`agent-skill-rules` 负责 skill 设计与治理；`github-checkpoint-persistence` 负责 GitHub 场景下的 checkpoint 持久化。
+- **场景映射可解释**：`scenario-mapping-log` 只做解释层，不强控路由；同时维护 `expected` 和 `actual` 的最小闭环。
+
+## 架构图
+
+```text
+qiao-skills
+├── root standalone skills
+│   ├── agent-skill-rules
+│   └── github-checkpoint-persistence
+└── skill-orchestration
+    ├── default-rules
+    │   ├── quality baseline
+    │   └── scenario explainability
+    └── skill-units
+        ├── decision-support
+        ├── documentation
+        ├── engineering
+        ├── language-engineering
+        └── research
+```
+
 ## 从 Prompt 到 Skill：变与不变
 
 近来 AI 工程里的名目，改得很勤。先前叫 Prompt，如今叫 Skill，往后怎样叫，谁也说不定。倘若因此便以为，名字一换，事情也全新了，那大概是容易受一点热闹欺骗的。
@@ -49,83 +123,6 @@
 - 映射表只保留 `Core / Conditional` 两层
 - 运行比对默认只保留 `expected / actual / matched / missing / unexpected`
 - 如果当前任务没有稳定主场景，或没有可靠命中记录，就不要强行套表
-
-## 快速开始
-
-### 安装 `skill-orchestration/` 全量（推荐）
-
-```bash
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/skill-orchestration --all --full-depth --global --yes
-```
-
-- 该命令会递归安装 `default-rules/` 与 `skill-units/` 下的全部 skills。
-- `--full-depth` 适合当前仓库这种“分组 + 子目录”结构。
-
-### 按需安装根目录独立技能
-
-```bash
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-skill-rules --global --yes
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/github-checkpoint-persistence --global --yes
-```
-
-- `agent-skill-rules/` 是 skill 设计与治理规范。
-- `github-checkpoint-persistence/` 是独立的 checkpoint 持久化技能，目前不放在 `skill-orchestration/` 下。
-
-### 更新已安装 skills
-
-```bash
-# 检查全局已安装 skills 是否有更新
-npx -y skills check --global
-
-# 一键更新全局已安装 skills
-npx -y skills update --all --global --yes
-```
-
-## 目录结构说明
-
-```text
-.
-├── README.md
-├── gitignore-global.example
-├── agent-skill-rules/
-├── github-checkpoint-persistence/
-└── skill-orchestration/
-    ├── default-rules/
-    │   ├── critical-thinking-evaluation/
-    │   ├── human-steered-execution/
-    │   ├── readability-first-writing/
-    │   ├── scenario-mapping-log/
-    │   ├── source-quality-control/
-    │   └── value-dense-delivery/
-    └── skill-units/
-        ├── decision-support/
-        │   └── roi-value-density/
-        ├── documentation/
-        │   └── technical-readme-structure/
-        ├── engineering/
-        │   ├── architecture-governance/
-        │   ├── core-first-simplicity/
-        │   ├── file-guardrails/
-        │   └── single-responsibility/
-        ├── language-engineering/
-        │   ├── python-coding-standards/
-        │   └── python-uv-acceleration/
-        └── research/
-            ├── general-understanding-research/
-            ├── knowledge-synthesis/
-            └── practice-driven-learning/
-```
-
-上面的目录树主要展示“分组和 skill 名称”，各目录职责如下：
-
-- `README.md`：仓库入口文档，负责说明安装方式、目录组织和使用约定。
-- `gitignore-global.example`：全局 Git 忽略模板，避免 `.agents/` 等安装产物进入版本控制。
-- `agent-skill-rules/`：独立放在根目录的治理技能，负责 skill 结构、frontmatter、引用组织与迁移规则。
-- `github-checkpoint-persistence/`：独立放在根目录的 checkpoint 持久化技能，负责关键节点读档、存档与续接。
-- `skill-orchestration/`：当前主技能树，包含默认规则与可复用能力单元。
-- `skill-orchestration/default-rules/`：跨任务常驻的质量基线，负责判断质量、来源控制、认知负荷、可读性、价值密度，以及作为解释层的场景映射与命中偏差排查。
-- `skill-orchestration/skill-units/`：可直接复用的能力单元，按决策支持、文档、工程、语言工程与研究等方向分组。
-- 每个 skill 目录都以 `SKILL.md` 为入口，必要时再挂接 `references/`、`scripts/`、`assets/` 提供补充说明或辅助资源。
 
 ### 全局 gitignore（建议）
 

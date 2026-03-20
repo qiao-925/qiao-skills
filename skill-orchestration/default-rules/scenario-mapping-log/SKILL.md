@@ -29,7 +29,7 @@ metadata:
 ### 3. 默认只做预期与实际比对
 
 - `expected`：来自 `references/scenario-map.md`
-- `actual`：来自运行时真实命中记录；若没有可靠记录，则写 `unavailable`
+- `actual`：按 `references/actual-hit-sources.md` 的来源顺序收集运行中的真实命中记录；若没有可靠记录，则写 `unavailable`
 - 默认比较结果只保留：
   - `matched`
   - `missing`
@@ -50,7 +50,7 @@ metadata:
 
 1. 判断当前任务是否存在稳定的 `primary scenario`。
 2. 从 `references/scenario-map.md` 读取该场景的 `Core / Conditional`。
-3. 收集运行中的 `actual` 命中记录；若没有可靠来源，明确写 `unavailable`。
+3. 按 `references/actual-hit-sources.md` 收集 `actual` 命中记录；若没有底层 telemetry，则改用 checkpoint、任务记录或人工复盘的最小日志。
 4. 对照 `expected` 与 `actual`，给出 `matched / missing / unexpected`。
 5. 若存在偏差，直接说明下一步应优化哪里。
 6. 若没有稳定主场景，或没有可靠 `actual`，不要强行套表。
@@ -75,6 +75,22 @@ metadata:
 
 - 不外显映射日志
 - 不为了“完整性”额外生成一份分析
+
+### `actual` 命中记录的默认来源顺序
+
+为避免 `scenario-mapping-log` 只停留在“映射表 + 空格式”，当前仓库约定按以下顺序收集 `actual`：
+
+1. 平台或运行时原生命中日志
+2. 任务执行中的结构化记录，例如 checkpoint、任务日志、阶段复盘
+3. 人工复盘得到的命中清单
+
+最小闭环要求：
+
+- 只在 skill 系统设计、迁移、调试、偏差排查、阶段复盘这些高价值场景下要求补记录
+- 普通任务没有偏差时，不要求每轮都额外写一份命中日志
+- 一旦进入映射校验场景，至少应留下 1 条可回看的 `actual` 记录，而不是只保留 `expected`
+
+最小记录模板见 `references/actual-hit-sources.md`。
 
 ### 默认输出格式
 
@@ -142,6 +158,7 @@ Notes:
 - 场景名是否让人一眼知道“当前主问题是什么”。
 - 映射表是否保持低认知负担，而不是不断加中间概念。
 - 比对格式是否仍然围绕 `expected / actual / missing / unexpected`。
+- 做映射校验时，是否至少能拿到 1 条可回看的 `actual` 记录，而不是完全靠回忆重建。
 - 出现偏差时，是否能落到具体优化动作，而不是停留在抽象解释。
 
 ## 反模式
@@ -156,3 +173,4 @@ Notes:
 
 - `references/scenario-map.md` - 当前仓库场景映射表：只维护“场景 -> 预期 skill”的映射关系
 - `references/log-comparison-format.md` - 最小命中比对格式：`expected / actual / matched / missing / unexpected`
+- `references/actual-hit-sources.md` - `actual` 命中记录的来源顺序、最小记录模板与适用边界

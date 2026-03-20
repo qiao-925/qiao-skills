@@ -21,7 +21,7 @@
 - Examples（输入/输出示例）
 - Edge cases（边界情况）
 
-**典型示例**：`w02-task-planning`、`doc-driven-development`、`w03-testing-and-diagnostics`
+**典型示例**：`github-checkpoint-persistence`、`python-uv-acceleration`、`general-understanding-research`
 
 ### 约束型 skill（Declarative）
 
@@ -39,7 +39,7 @@
 - 判断标准（如何判断是否违反原则，含对照表）
 - 反模式（必须避免的行为，含具体示例）
 
-**典型示例**：`ai-collaboration-principles`、`single-responsibility`、`python-coding-standards`
+**典型示例**：`critical-thinking-evaluation`、`single-responsibility`、`python-coding-standards`
 
 ### 混合型 skill
 
@@ -47,8 +47,8 @@
 
 **判断方法**：看 skill 的核心价值是"执行一个流程"还是"维持一种状态"。
 
-- `critical-thinking-guidance`：会触发“判断 → 确认 → 轻量引导/强制思考 → 回答”的行为流程，但核心仍是约束性的（保护用户认知能力与用户主导权）。偏约束型，流程只是约束的实施手段。
-- `doc-driven-development`：有持续性原则（先查文档再写代码），但核心是动作流程（识别问题 → 查文档 → 基于文档实现）。偏动作型，原则只是触发条件。
+- `scenario-mapping-log`：会触发“判断主场景 → 读取映射 → 收集 actual → 做比对”的流程，但核心仍是解释与优化标准。偏约束型，步骤只是展开方式。
+- `general-understanding-research`：有统一输出契约和长期质量要求，但核心仍是完成一轮“建立宏观理解”的动作流程。偏动作型，约束只是为了保证收敛质量。
 
 **混合型处理建议**：识别主导类型，按主导类型组织正文，将次要类型的内容作为补充段落。
 
@@ -60,8 +60,8 @@
 
 | 类型 | description 模式 | 示例 |
 |------|-----------------|------|
-| 动作型 | "做什么 + 何时触发" | "任务规划规范，适用于复杂任务（≥3步）..." |
-| 约束型 | "约束什么 + 适用范围" | "AI协作总原则，规范 Agent 的协作行为...适用于所有 AI Agent 交互场景" |
+| 动作型 | "做什么 + 何时触发" | "GitHub 专用的 checkpoint 持久化与读档 skill。用于..." |
+| 约束型 | "约束什么 + 适用范围" | "批判性评估默认规则，约束 Agent 在关键判断中..." |
 
 ### 建议标注类型（可选）
 
