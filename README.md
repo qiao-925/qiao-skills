@@ -67,7 +67,7 @@ git config --global core.excludesfile ~/.gitignore_global
 - **治理与迁移分层**：`agent-skill-rules` 负责 skill 设计与治理；`github-checkpoint-persistence` 负责 GitHub 场景下的 checkpoint 持久化。
 - **场景映射可解释**：`scenario-mapping-log` 只做解释层，不强控路由；同时维护 `expected` 和 `actual` 的最小闭环。
 
-## 架构图
+## 目录结构
 
 ```text
 qiao-skills
