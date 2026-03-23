@@ -1,6 +1,6 @@
 ---
 name: github-checkpoint-persistence
-description: GitHub 专用的 checkpoint 持久化与读档 skill。用于把任务关键节点、最后一次回复、计划文档、关键决策与阻塞写入 GitHub issue/comment，并在跨会话、阶段切换、交接或恢复进度时从 issue 恢复上下文。关键词：GitHub、checkpoint、persist、resume、issue、comment、gh、存档、读档、handoff。
+description: GitHub 专用的 checkpoint 持久化与读档 skill。用于把任务关键节点、最近进展摘要、计划文档路径、关键决策与阻塞写入 GitHub issue/comment，并在跨会话、阶段切换、交接或恢复进度时从 issue 恢复上下文。关键词：GitHub、checkpoint、persist、resume、issue、comment、gh、存档、读档、handoff。
 metadata:
   type: procedural
 ---
@@ -20,8 +20,8 @@ metadata:
 负责：
 
 - 关键节点存档
-- 最近一次回复快照
-- 计划文档快照
+- 最近一次关键进展摘要
+- 计划文档路径或简要摘要
 - blocker / decision / handoff 持久化
 - 从 GitHub issue 恢复上下文
 
@@ -74,31 +74,48 @@ metadata:
 
 ### Step 3：执行 persist
 
-执行存档时，至少维护这些核心字段：
+执行存档时，默认只维护两层结构：
+
+1. Issue 正文中的 `Task Summary`
+2. Issue 评论中的 `Persistence Record`
+
+`Task Summary` 至少包含：
 
 - `Goal`
 - `Status`
-- `Next`
 - `Stage`
+- `Next`
 - `Updated At`
-- `Last Turn`
-- `Last Reply`
 - `Issue #`
 
 有则追加：
 
-- `Plan Path / Plan Snapshot`
+- `Key Paths`
+
+`Persistence Record` 至少包含：
+
+- `Kind`
+- `Timestamp`
+- `Stage`
+- `Status`
+- `Next`
+
+有则追加：
+
+- `Completed`
 - `Decision`
 - `Blocker`
 - `Handoff`
+- `Plan Path`
+- `Reply Summary`
 
 执行顺序：
 
 1. 更新 issue 正文中的当前摘要。
 2. 追加一条持久化评论，记录本轮关键进展。
-3. 若本轮有长回复、计划书、关键结论或交接内容，把正文快照写入评论。
+3. 若本轮涉及计划书、关键结论或交接内容，默认记录路径加简要摘要，不要求把全文作为附件写入评论。
 
-不要只写路径；只要内容对后续恢复有价值，就必须同步正文或分段正文。
+默认优先“路径 + 摘要”，而不是“路径 + 全文快照”。只有原文无法稳定访问且缺少摘录会影响恢复时，才补最小必要片段。
 
 ### Step 4：执行 resume
 
@@ -108,9 +125,9 @@ metadata:
 - 当前 `Stage`
 - 当前 `Next`
 - 最近一次 `Kind`
-- 最近计划文档路径
+- 最近 `Key Paths / Plan Path`
 - 最近 blocker / decision
-- 最近回复快照
+- 最近一条 record 摘要
 
 恢复顺序默认参考 `references/github-persistence-schema.md`。
 
@@ -128,7 +145,7 @@ metadata:
 - 读档：`gh issue view <id> -R <owner>/<repo> --comments`
 - 列候选：`gh issue list -R <owner>/<repo> --state open --limit 20 --json number,title,updatedAt,labels,url`
 
-正文模板、评论结构与大文本分段规则见：
+正文模板与读档优先级见：
 
 - `references/github-persistence-schema.md`
 
@@ -150,15 +167,15 @@ metadata:
 
 - `gh` 未登录：提示 `gh auth login`，停止写入。
 - 仓库上下文不明确：先确认 `<owner>/<repo>`。
-- 评论正文过长：按 reference 的分段规则拆评论，不要只写“见本地文件”。
+- 评论正文过长：先压缩为摘要并保留关键路径；仅在确有必要时拆成少量连续评论，不使用附件式展开模板。
 - 没有新增有效上下文：可跳过噪音写入；但若用户显式要求“存档”，仍应执行。
-- 本地文档缺失：显式标记 `artifact-missing`，不要伪造正文。
+- 本地文档缺失：显式标记路径不可用或 `artifact-missing`，不要伪造正文。
 
 ## 一行回执模板
 
 - `persist`：`已存档 #<issue> | 类型:<kind> | 状态:<status> | 下一步:<next> | <url>`
-- `resume`：`已读档 #<issue> | 状态:<status> | 下一步:<next> | 最近快照:<kind>@<time> | <url>`
+- `resume`：`已读档 #<issue> | 状态:<status> | 下一步:<next> | 最近记录:<kind>@<time> | <url>`
 
 ## 参考资料
 
-- `references/github-persistence-schema.md` - GitHub issue 摘要模板、评论结构、分段规则与读档优先级
+- `references/github-persistence-schema.md` - GitHub issue 摘要模板、评论结构、长文本处理原则与读档优先级
