@@ -17,11 +17,11 @@ npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/skill-orches
 
 ```bash
 npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-skill-rules --global --yes
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/github-checkpoint-persistence --global --yes
+npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/working-memory-boost --global --yes
 ```
 
 - `agent-skill-rules/` 是 skill 设计与治理规范。
-- `github-checkpoint-persistence/` 是独立的 checkpoint 持久化技能，目前不放在 `skill-orchestration/` 下。
+- `working-memory-boost/` 是增强型工作记忆技能（双层备份 + 全局看板 + 自动完整性检查），目前不放在 `skill-orchestration/` 下。
 
 ### 更新已安装 skills
 
@@ -64,7 +64,7 @@ git config --global core.excludesfile ~/.gitignore_global
 
 - **默认规则常驻**：`critical-thinking-evaluation`、`source-quality-control`、`value-dense-delivery`、`readability-first-writing`、`human-steered-execution` 等规则负责跨任务质量基线。
 - **能力单元按需触发**：把 README、架构、Python、研究、决策等高频主题拆成独立 `skill-unit`，避免一个“大而全”总 skill。
-- **治理与迁移分层**：`agent-skill-rules` 负责 skill 设计与治理；`github-checkpoint-persistence` 负责 GitHub 场景下的 checkpoint 持久化。
+- **治理与迁移分层**：`agent-skill-rules` 负责 skill 设计与治理；`working-memory-boost` 负责增强型工作记忆（双层备份 + 看板优先）。
 - **场景映射可解释**：`scenario-mapping-log` 只做解释层，不强控路由；同时维护 `expected` 和 `actual` 的最小闭环。
 
 ## 目录结构
@@ -73,7 +73,7 @@ git config --global core.excludesfile ~/.gitignore_global
 qiao-skills
 ├── root standalone skills
 │   ├── agent-skill-rules
-│   └── github-checkpoint-persistence
+│   └── working-memory-boost
 └── skill-orchestration
     ├── default-rules
     │   ├── quality baseline
