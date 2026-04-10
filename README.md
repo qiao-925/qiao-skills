@@ -1,71 +1,39 @@
 # qiao-skills
 
-> 面向 Agent 的技能仓库，提供可复用的默认规则、skill-units 与少量独立技能，也记录从 Prompt 工程向 Skill 工程演化的迁移实践。
+个人工作经验沉淀的 AI 技能库。三件事：**通用编码规则**、**工作记忆增强**、**自动化仓库维护闭环**。
 
-## 快速开始
+---
 
-### 安装 `skill-orchestration/` 全量（推荐）
+## 亮点
 
-```bash
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/skill-orchestration --all --full-depth --global --yes
+**通用编码规则**：批判性评估、来源核查、高密度输出、可读性优先——常驻生效，不需要每次提醒 AI。
+
+**`working-memory-boost`**：跨 session 的工作记忆增强。AI 在关键节点自动存档，下次继续时直接读档恢复上下文，本地 + GitHub Issue 双层备份。
+
+**仓库维护闭环**：改完 skill → 自动审查（`skill-audit`）→ 审查通过自动 push + 更新本机。用自然语言构建的 CI/CD，`AGENTS.md` 是 orchestration 层。这套机制本身可能比 skill 内容更有参考价值。
+
+---
+
+## 安装
+
+把以下内容发给你的 AI 助手，它会帮你执行：
+
+**全量安装**
+```
+从 https://github.com/qiao-925/qiao-skills 安装 skill-orchestration 下的所有 skills，全局安装，包含所有子目录
 ```
 
-- 该命令会递归安装 `default-rules/` 与 `skill-units/` 下的全部 skills。
-- `--full-depth` 适合当前仓库这种“分组 + 子目录”结构。
-
-### 按需安装根目录独立技能
-
-```bash
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/agent-skill-rules --global --yes
-npx -y skills add https://github.com/qiao-925/qiao-skills/tree/main/working-memory-boost --global --yes
+**独立安装**
+```
+全局安装 https://github.com/qiao-925/qiao-skills 里的 working-memory-boost 和 agent-skill-rules
 ```
 
-- `agent-skill-rules/` 是 skill 设计与治理规范。
-- `working-memory-boost/` 是增强型工作记忆技能（双层备份 + 全局看板 + 自动完整性检查），目前不放在 `skill-orchestration/` 下。
-
-### 更新已安装 skills
-
-```bash
-# 检查全局已安装 skills 是否有更新
-npx -y skills check --global
-
-# 一键更新全局已安装 skills
-npx -y skills update --all --global --yes
+**更新**
+```
+更新我全局安装的所有 skills
 ```
 
-### 全局 gitignore（建议）
-
-
-**查看当前配置**
-
-```bash
-git config --global --get core.excludesfile
-```
-
-输出为空表示当前还没有设置全局 gitignore。
-
-**PowerShell（Windows）**
-
-```powershell
-Copy-Item -Force .\gitignore-global.example $env:USERPROFILE\.gitignore_global
-git config --global core.excludesfile "$env:USERPROFILE\.gitignore_global"
-```
-
-**Bash（macOS/Linux）**
-
-```bash
-cp -f ./gitignore-global.example ~/.gitignore_global
-git config --global core.excludesfile ~/.gitignore_global
-```
-
-
-
-## 核心特性
-
-- **默认规则常驻**：`critical-thinking-evaluation`、`source-quality-control`、`value-dense-delivery`、`readability-first-writing`、`human-steered-execution` 等规则负责跨任务质量基线。
-- **能力单元按需触发**：把 README、架构、Python、研究、决策等高频主题拆成独立 `skill-unit`，避免一个“大而全”总 skill。
-- **治理与迁移分层**：`agent-skill-rules` 负责 skill 设计与治理；`working-memory-boost` 负责增强型工作记忆（双层备份 + 看板优先）。
-- **场景映射可解释**：`scenario-mapping-log` 只做解释层，不强控路由；同时维护 `expected` 和 `actual` 的最小闭环。
+> 需要手动命令？查看 [旧版 README](https://github.com/qiao-925/qiao-skills/commits/main)。
 
 ## 目录结构
 
