@@ -1,16 +1,14 @@
 # qiao-skills
 
-个人工作经验沉淀的 AI 技能库。三件事：**通用编码规则**、**工作记忆增强**、**自动化仓库维护闭环**。
+这里存的，是些从日常工作里慢慢攒下来的经验——整理成了 AI 能用的规则和技能，也算是一份从 Prompt 工程走向 Skill 工程的迁移记录。说是仓库，倒不如说是一个还在生长的笔记本。
 
----
+里头有三样东西，倒是值得一提的。
 
-## 亮点
+其一是些**通用编码规则**：批判性评估、来源核查、高密度输出、可读性优先。这些规则常驻生效，不需要每次开口提醒 AI，装了便算数，省了不少口舌。
 
-**通用编码规则**：批判性评估、来源核查、高密度输出、可读性优先——常驻生效，不需要每次提醒 AI。
+其二是 **`working-memory-boost`**，做跨 session 的工作记忆增强。AI 在关键节点自动存档，下次继续时直接读档恢复上下文，本地与 GitHub Issue 双层备份。记性不好的毛病，总算有了一个朴素的补救。
 
-**`working-memory-boost`**：跨 session 的工作记忆增强。AI 在关键节点自动存档，下次继续时直接读档恢复上下文，本地 + GitHub Issue 双层备份。
-
-**仓库维护闭环**：改完 skill → 自动审查（`skill-audit`）→ 审查通过自动 push + 更新本机。用自然语言构建的 CI/CD，`AGENTS.md` 是 orchestration 层。这套机制本身可能比 skill 内容更有参考价值。
+其三是这套仓库自己的**维护闭环**：改完 skill，自动审查，审查通过便自动推送、更新本机。用自然语言写成的，`AGENTS.md` 充当 orchestration 层。这套机制本身，或许比里头的 skill 内容更有些参考的价值。
 
 ---
 
@@ -33,26 +31,7 @@
 更新我全局安装的所有 skills
 ```
 
-> 需要手动命令？查看 [旧版 README](https://github.com/qiao-925/qiao-skills/commits/main)。
-
-## 目录结构
-
-```text
-qiao-skills
-├── root standalone skills
-│   ├── agent-skill-rules
-│   └── working-memory-boost
-└── skill-orchestration
-    ├── default-rules
-    │   ├── quality baseline
-    │   └── scenario explainability
-    └── skill-units
-        ├── decision-support
-        ├── documentation
-        ├── engineering
-        ├── language-engineering
-        └── research
-```
+---
 
 ## 从 Prompt 到 Skill：变与不变
 
