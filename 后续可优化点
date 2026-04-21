@@ -1,0 +1,19 @@
+agent-skill-rules 和skill-audit 以及 scenario-mapping-log
+
+这三个的思想和rule是通用的
+
+约束rule的规则
+rule的审计
+运行时的rule执行情况
+
+这应该算是rule的质量框架
+
+---
+
+再就是rule的文件结构，需要参考skill做分类和分层处理
+
+---
+
+需要先调研rule的规范，不然迁移过去蛮奇怪的
+
+
